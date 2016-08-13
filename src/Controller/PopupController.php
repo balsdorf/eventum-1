@@ -216,6 +216,15 @@ class PopupController extends BaseController
                     $this->tpl->assign('selfnotify_result', $res);
                 }
                 break;
+            // TECHSOFT-CSTM
+            case 'acknowledge_response':
+                //Techsoft::Customized
+                if (Issue::canAccess($this->issue_id, $this->usr_id) && Auth::getCurrentRole() > User::ROLE_CUSTOMER) {
+                    $res = Issue::markAsUpdated($_GET["iss_id"], "staff response");
+                    echo ("<br><center>Issue time updated</center>");
+                }
+                break;
+            // /TECHSOFT-CSTM
         }
     }
 

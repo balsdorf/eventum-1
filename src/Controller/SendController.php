@@ -71,12 +71,16 @@ class SendController extends BaseController
         $this->prj_id = Auth::getCurrentProject();
         $this->usr_id = Auth::getUserID();
 
-        return Issue::canAccess($this->issue_id, $this->usr_id);
+        if ($this->issue_id) {
+            return Issue::canAccess($this->issue_id, $this->usr_id);
+        } else {
+            return Access::canAccessAssociateEmails($this->usr_id);
+        }
     }
 
     protected function defaultAction()
     {
-        Workflow::prePage($this->prj_id, 'send_email');
+        Workflow::prePage($this->prj_id, 'send_email', $this);
 
         // since emails associated with issues are sent to the notification list,
         // not the to: field, set the to field to be blank
@@ -146,6 +150,13 @@ class SendController extends BaseController
                 'email_category_id' => Time_Tracking::getCategoryId($this->prj_id, 'Email Discussion'),
             ]
         );
+
+
+        // TECHSOFT-CSTM
+        if ($this->issue_id == 0) { // Replying to non-associated email in email queue
+            $this->tpl->assign("from", "Tech Soft 3D Support <support@techsoft3d.com>");
+        }
+        // /TECHSOFT-CSTM
 
         // don't add signature if it already exists. Note: This won't handle multiple user duplicate sigs.
         if (!empty($draft['emd_body']) && $user_prefs['auto_append_email_sig'] == 1

@@ -887,6 +887,8 @@ new_issue.validateForm = function()
 {
     var form = $('form#report_form');
 
+    setDefaults(form.get(0)); // TECHSOFT-CSTM
+
     var category_field = Eventum.getField('category')
     if (category_field.attr('type') != 'hidden' && category_field.val() == -1 && category_field.data('required')) {
         Validation.errors[Validation.errors.length] = new Option('Category', 'category');

@@ -178,7 +178,9 @@ class UsersController extends ManageBaseController
     {
         $project_roles = [];
         foreach ($project_list as $prj_id => $prj_title) {
-            $excluded_roles = [User::ROLE_CUSTOMER];
+            // TECHSOFT-CSTM: Allow users to be set to customer
+//            $excluded_roles = [User::ROLE_CUSTOMER];
+            $excluded_roles = [];
             if ($this->role_id == User::ROLE_MANAGER) {
                 $excluded_roles[] = User::ROLE_ADMINISTRATOR;
             }

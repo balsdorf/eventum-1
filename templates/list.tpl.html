@@ -121,9 +121,15 @@
               {t 1=$list[i].last_action_date_label 2=$list[i].last_action_date_diff}%1:
 %2 ago{/t}
             {elseif $field_name == 'usr_full_name'}
-              <a href="list.php?view=reporter&reporter_id={$list[i].iss_usr_id}"
-              title="View other issues from this reporter">
-              {$list[i].usr_full_name|escape:"html"}</a>
+              {* // TECHSOFT-CSTM *}
+              {if $core.current_role > $core.roles.customer} Only display the link to non customers
+				  <a href="list.php?view=reporter&reporter_id={$list[i].iss_usr_id}"
+				  title="View other issues from this reporter">
+				  {$list[i].usr_full_name|escape:"html"}</a>
+              {else}
+				  {$list[i].usr_full_name|escape:"html"}
+              {/if}
+              {* // /TECHSOFT-CSTM *}
             {elseif $field_name == 'iss_percent_complete'}
               <div class="iss_percent_complete ui-progressbar" data-percent="{$list[i].iss_percent_complete}"><div class="progress-label">&nbsp;{$list[i].iss_percent_complete|escape:"html"} %</div></div>
             {elseif $field_name == 'iss_expected_resolution_date'}

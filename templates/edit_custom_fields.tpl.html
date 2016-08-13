@@ -15,6 +15,7 @@
 {else}
   {assign var="cf_required" value=""}
 {/if}
+{if $core.current_role != $core.roles.customer OR ($custom_fields[i].fld_title != 'Bug Description' AND $custom_fields[i].fld_title != 'Release')}{* // TECHSOFT-CSTM-LINE *}
 <tr class="custom_field"
     data-custom-id="{$custom_fields[i].fld_id}"
     data-custom-type="{$custom_fields[i].fld_type}"
@@ -79,4 +80,5 @@
     {/if}
   </td>
 </tr>
+{/if}{* // TECHSOFT-CSTM-LINE *}
 {/section}

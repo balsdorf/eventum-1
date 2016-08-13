@@ -21,7 +21,9 @@ use CRM;
 use CRMException;
 use Custom_Field;
 use Date_Helper;
+use DB_Helper; // TECHSOFT-CSTM
 use Email_Account;
+use Eventum\Db\DatabaseException;
 use Group;
 use Issue;
 use Mail_Helper;
@@ -153,6 +155,9 @@ class NewController extends BaseController
                         'contacts' => $info['contacts'],
                     ]
                 );
+
+                // TECHSOFT-CSTM: Set contract ID
+                $this->tpl->assign("contract_id", $info['contract_id']);
             } catch (CRMException $e) {
             }
         }
@@ -229,6 +234,22 @@ class NewController extends BaseController
         } else {
             // take POST and GET data, so that POST data overrides
             $data = $request->request->all() + $request->query->all();
+
+            // TECHSOFT-CSTM: Get issue descriptions
+            if (empty($data['description'])) {
+                $sql = "SELECT
+                            value
+                        FROM
+                            techsoft_defaults
+                        WHERE 
+                            item='initial_description'";
+                try {
+                    $res = DB_Helper::getInstance()->getOne($sql);
+                    $data['description'] = $res;
+                } catch (DatabaseException $e) {
+                }
+            }
+            // TECHSOFT: end
             $this->tpl->assign('defaults', $data);
         }
     }

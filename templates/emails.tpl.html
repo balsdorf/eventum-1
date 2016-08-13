@@ -155,6 +155,24 @@
     //-->
 </script>
 
+{* // TECHSOFT-CSTM: This function added *}
+<script language="JavaScript">
+{literal}
+function lookupCustomer(customer_id)
+{
+    var features = 'width=420,height=400,top=30,left=30,resizable=no,scrollbars=yes,toolbar=no,location=no,menubar=no,status=no';
+    var url = 'customer/customer.php?page=lookup_customer&form=update';
+    if (customer_id != '') {
+        url += '&cat=lookup&field=customer_id&value=' + customer_id;
+    }
+    var popupWin = window.open(url, '_customerLookup', features);
+    popupWin.focus();
+}
+//-->
+</script>
+{/literal}
+{* /TECHSOFT-CSTM *}
+
 <form id="email_list_form" target="_popup" method="get" action="associate.php">
     <input type="hidden" name="cat" value="associate">
     <table class="bordered grid">
@@ -171,6 +189,9 @@
                 <a title="{t}sort by sender{/t}" href="{$sorting.links.sup_from}" class="white_link">{t}Sender{/t}</a>
                 {if $sorting.images.sup_from|default:'' != ""}<a title="{t}sort by sender{/t}" href="{$sorting.links.sup_from}" class="white_link"><img border="0" src="{$sorting.images.sup_from}"></a>{/if}
             </th>
+            {* TECHSOFT-CSTM: Customized *}
+            <th align="center">{t}Component{/t}</th>
+            {* /TECHSOFT-CSTM *}
             {if $core.has_crm}
             <th align="center" nowrap>
                 <a title="{t}sort by customer{/t}" href="{$sorting.links.sup_customer_id}" class="white_link">{t}Customer{/t}</a>
@@ -200,8 +221,15 @@
         <tr class="{cycle values='odd,even'}">
             <td align="center" width="1%"><input type="checkbox" name="item[]" value="{$list[i].sup_id}" {if $list[i].sup_iss_id != 0}disabled{/if}></td>
             <td>{$list[i].sup_from|default:$hidden_sender|escape:"html"}</td>
+            {* TECHSOFT-CSTM: Customized *}
+            <td>{$list[i].component|escape:"html"}</td>
+            {* /TECHSOFT-CSTM *}
             {if $core.has_crm}
-            <td nowrap>{$list[i].customer_title|escape:"html"}</td>
+            <td nowrap>
+                {* TECHSOFT-CSTM: Customized *}
+                <a href="javascript:void(null);" title="{$list[i].customer_title|escape:"html"}" onClick="javascript:lookupCustomer({$list[i].sup_customer_id});" class="link">{$list[i].customer_title|escape:"html"}</a>
+                {* /TECHSOFT-CSTM *}
+            </td>
             {/if}
             <td align="center" nowrap>{$list[i].sup_date|timeago}</td>
             <td>{$list[i].sup_to|escape:"html"|replace:",":" "}</td>
@@ -222,13 +250,13 @@
         </tr>
         {sectionelse}
         <tr bgcolor="gray">
-            <td colspan="{if $core.has_crm}7{else}6{/if}" align="center">
+            <td colspan="{* TECHSOFT-CSTM *}7{* /TECHSOFT-CSTM *}" align="center">
                 <i>{t}No emails could be found.{/t}</i>
             </td>
         </tr>
         {/section}
         <tr class="buttons">
-            <td colspan="{if $core.has_crm}7{else}6{/if}">
+            <td colspan="{* TECHSOFT-CSTM *}8{* /TECHSOFT-CSTM *}">
                 <table width="100%" cellspacing="0" cellpadding="0">
                     <tr>
                         <td width="35%">
@@ -270,7 +298,7 @@
             </td>
         </tr>
         <tr class="buttons">
-            <td colspan="{if $core.has_crm}7{else}6{/if}">
+            <td colspan="{* TECHSOFT-CSTM *}8{* /TECHSOFT-CSTM *}">
                 <table width="100%" cellspacing="0" cellpadding="0">
                     <tr>
                         <td colspan="3">

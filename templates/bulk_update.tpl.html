@@ -82,7 +82,13 @@
 
               <div id="close_message_popup" style="display: none">
                   <label for="closed_message">{t}Closed Message{/t}</label><br />
-                  <textarea id="closed_message_popup" name="closed_message_popup" rows="8" cols="80">Issue Bulk closed</textarea>
+                  {* TECHSOFT-CSTM: Customized *}
+                  <textarea id="closed_message_popup" name="closed_message_popup" rows="8" style="width: 95%">Dear Customer,
+This is to inform you that this Tech Soft 3D Support issue has been closed due to inactivity as this issue has been in Customer - On Hold status for at least 15 days.
+If you feel this have been prematurely closed, please contact support@techsoft3d.com or respond to this email to reopen this issue.
+Thank You,
+Tech Soft 3D Support</textarea>
+                  {* /TECHSOFT-CSTM: End customized *}
                   <br />
                   <input id="closed_set_message" type="button" value="{t}Set Message{/t}">
               </div>

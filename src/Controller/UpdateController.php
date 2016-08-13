@@ -112,7 +112,7 @@ class UpdateController extends BaseController
      */
     protected function defaultAction()
     {
-        Workflow::prePage($this->prj_id, 'update');
+        Workflow::prePage($this->prj_id, 'update', $this);
 
         if (Issue_Lock::acquire($this->issue_id, $this->usr_id)) {
             $issue_lock = false;

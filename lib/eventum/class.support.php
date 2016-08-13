@@ -2628,6 +2628,14 @@ class Support
         foreach ($addresses as $address) {
             $address = strtolower($address);
             if ((!in_array($address, $subscribers)) && (!in_array($address, $addresses_not_too_add))) {
+
+                // TECHSOFT-CSTM: Don't add anyone but customers to the account
+                $customer_id = User::getCustomerID(User::getUserIDByEmail($address, true));
+                if ($customer_id != Issue::getCustomerID($email['issue_id'])) {
+                    continue;
+                }
+                // /TECHSOFT-CSTM
+
                 Notification::subscribeEmail(Auth::getUserID(), $email['issue_id'], $address, Notification::getDefaultActions($email['issue_id'], $address, 'add_extra_recipients'));
                 if ($is_auto_created) {
                     Notification::notifyAutoCreatedIssue($prj_id, $email['issue_id'], $email['from'], $email['date'], $email['subject'], $address);

@@ -59,6 +59,11 @@ class LoginController extends BaseController
             $this->loginFailure(2, 'empty password', ['email' => $this->login]);
         }
 
+        // TECHSOFT-CSTM: Try to import contact
+        $crm = \CRM::getInstance(APP_TECHSOFT_PRJ_ID);
+        $crm->importContact($this->login);
+        // /TECHSOFT-CSTM
+
         // check if user exists
         if (!Auth::userExists($this->login)) {
             $this->loginFailure(3, 'unknown user');

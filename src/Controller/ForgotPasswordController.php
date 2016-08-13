@@ -60,6 +60,11 @@ class ForgotPasswordController extends BaseController
             return 4;
         }
 
+        // TECHSOFT-CSTM: Try to import contact
+        $crm = \CRM::getInstance(APP_TECHSOFT_PRJ_ID);
+        $crm->importContact($email);
+        // /TECHSOFT-CSTM
+
         $usr_id = User::getUserIDByEmail($email, true);
         if (!$usr_id) {
             return 5;

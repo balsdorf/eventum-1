@@ -37,7 +37,7 @@
             <tr>
                 <td width="10">
                     <input type="radio" name="project" value="{$prj_id}" id="project_{$prj_id}"
-                    {if $project@first}checked="checked"{/if}>
+                    {if $prj_id == 2}checked="checked"{/if}>{* TECHSOFT-CSTM: Changed line *}
                 </td>
                 <td>
                     <label class="project_label" for="project_{$prj_id}">{$project}</label>

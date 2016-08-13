@@ -66,7 +66,7 @@ $().ready(function() {
     </tr>
     {else}
     <tr>
-      <td class="label">{t}Login{/t}:</td>
+      <td class="label">{t}Email{/t}:</td>{* TECHSOFT-CSTM: Copy change *}
       <td>
         <input accessKey="e" type="text" name="email" value="{$email|default:$smarty.request.email|default:''|escape}" size="30">
         {include file="error_icon.tpl.html" field="email"}
@@ -79,11 +79,13 @@ $().ready(function() {
         {include file="error_icon.tpl.html" field="passwd"}
       </td>
     </tr>
+    {* TECHSOFT-CSTM: Hide this note
     <tr align="center">
       <td colspan="2">
         {t}Login credential may be your email or user id, depending on system configuration.{/t}
       </td>
     </tr>
+     /TECHSOFT-CSTM *}
 
     <tr align="center">
       <td colspan="2" class="default_white" bgcolor="#006486">
@@ -102,7 +104,8 @@ $().ready(function() {
 
     <tr align="center">
       <td colspan="2">
-        <a href="{$core.rel_url}forgot_password.php{if $smarty.get.email|default:'' != ""}?email={$smarty.get.email|escape:"html"}{/if}">{t}I Forgot My Password{/t}</a>
+        <a href="{$core.rel_url}forgot_password.php{if $smarty.get.email|default:'' != ""}?email={$smarty.get.email|escape:"html"}{/if}">
+          {t}I Forgot My Password / I'm Requesting an Initial Password{/t}</a>{* TECHSOFT-CSTM: Changed wording *}
         {if $core.app_setup.open_signup|default:'' == 'enabled'}<a href="signup.php">{t}Signup for an Account{/t}</a>{/if}
       </td>
     </tr>

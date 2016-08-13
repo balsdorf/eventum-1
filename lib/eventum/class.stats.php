@@ -299,6 +299,9 @@ class Stats
                         iss_sta_id = sta_id AND
                         iss_prj_id=? AND
                         iss_pri_id=?';
+            // TECHSOFT-CSTM: Limit to bugs only
+            $stmt .= " AND iss_prc_id=5";
+            // /TECHSOFT-CSTM
             if ($hide_closed) {
                 $stmt .= ' AND
                         sta_is_closed = 0';
@@ -382,6 +385,9 @@ class Stats
                 $stmt .= ' AND
                         sta_is_closed = 0';
             }
+            // TECHSOFT-CSTM: Limit to bugs only
+            $stmt .= " AND iss_prc_id=5";
+            // /TECHSOFT-CSTM
             $res = (integer) DB_Helper::getInstance()->getOne($stmt, [$prj_id, $usr_id]);
             if ($res > 0) {
                 $stats[$usr_full_name] = $res;

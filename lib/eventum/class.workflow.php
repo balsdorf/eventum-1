@@ -733,16 +733,17 @@ class Workflow
      *
      * @param   integer $prj_id The project ID
      * @param   string $page_name The name of the page
-     * @return  null
+     * @param   BaseController $controller
+     * @return null
      */
-    public static function prePage($prj_id, $page_name)
+    public static function prePage($prj_id, $page_name, $controller)
     {
         if (!self::hasWorkflowIntegration($prj_id)) {
             return true;
         }
         $backend = self::_getBackend($prj_id);
 
-        return $backend->prePage($prj_id, $page_name);
+        return $backend->prePage($prj_id, $page_name, $controller);
     }
 
     /**

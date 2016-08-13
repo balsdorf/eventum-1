@@ -1,3 +1,19 @@
+{* // TECHSOFT-CSTM: Add function*}
+{literal}
+<script language="JavaScript">
+<!--
+function lookupCustomer()
+{
+    var features = 'width=420,height=400,top=30,left=30,resizable=no,scrollbars=yes,toolbar=no,location=no,menubar=no,status=no';
+
+    var popupWin = window.open('/customer/techsoft_sugar/customer_lookup.php', '_customerLookup', features);
+
+    popupWin.focus();
+}
+//-->
+</script>
+{/literal}
+{* /TECHSOFT-CSTM *}
 {if $core.current_role > $core.roles.developer}
   <li><a title="{t}manage the application settings, users, projects, etc{/t}"
          href="{$core.rel_url}manage/projects.php">{t}Administration{/t}</a></li>
@@ -20,6 +36,12 @@
 {if $core.current_role > $core.roles.customer}
   <li><a title="{t}list all issues assigned to you{/t}" href="{$core.rel_url}list.php?view=my_assignments">{t}My Assignments{/t}</a></li>
 {/if}
+
+{* // TECHSOFT-CSTM *}
+{if $core.current_role > $roles.customer}
+  <li><a title="lookup a customer" href="javascript:void(null);" onClick="javascript:lookupCustomer();">Lookup Customer</a></li>
+{/if}
+{* /TECHSOFT-CSTM *}
 
   <li><a title="{t}Home{/t}" href="{$core.rel_url}main.php">{t}Home{/t}</a></li>
 

@@ -527,9 +527,10 @@ class Abstract_Workflow_Backend
      *
      * @param   integer $prj_id The project ID
      * @param   string $page_name The name of the page
+     * @param   BaseController $controller
      * @return  null
      */
-    public function prePage($prj_id, $page_name)
+    public function prePage($prj_id, $page_name, $controller)
     {
         return null;
     }

@@ -75,7 +75,7 @@ class ViewEmailController extends BaseController
 
         $this->issue_id = Support::getIssueFromEmail($this->sup_id);
         if (!$this->issue_id) {
-            return false;
+            return Auth::getCurrentRole() >= User::ROLE_USER;
         }
 
         if (!Issue::canAccess($this->issue_id, $this->usr_id)) {

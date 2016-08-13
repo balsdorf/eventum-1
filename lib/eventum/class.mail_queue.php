@@ -249,6 +249,13 @@ class Mail_Queue
             $headers['MIME-Version'] = '1.0';
         }
 
+        // TECHSOFT-CSTM: Testing email hack. Only send to @techsoft
+        if (defined('TECHSOFT_MAIL_TESTING_CATCHALL') && !stristr($recipient, '@techsoft3d.com')) {
+            $recipient = TECHSOFT_MAIL_TESTING_CATCHALL;
+            $headers['To'] = TECHSOFT_MAIL_TESTING_CATCHALL;
+        }
+        // /TECHSOFT-CSTM
+
         $mail = Mail::factory('smtp', Mail_Helper::getSMTPSettings());
         // TODO: mail::send wants just bare addresses, do that ourselves
         $recipient = Mime_Helper::encodeAddress($recipient);
